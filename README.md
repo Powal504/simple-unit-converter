@@ -9,7 +9,6 @@ Ten projekt to prosty, funkcjonalny konwerter jednostek, który umożliwia:
 - Wprowadzanie wartości liczbowej do konwersji
 - Wybór jednostek wejściowych i wyjściowych
 - Wyświetlanie wyniku konwersji wraz z jednostką
-- Walidację wprowadzonej wartości
 - Historię poprzednich konwersji z możliwością sortowania i usuwania wpisów
 - Resetowanie formularza
 
