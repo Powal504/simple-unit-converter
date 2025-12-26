@@ -1,35 +1,19 @@
-// Długość
-export const metersToCentimeters = (m) => m * 100;
-export const centimetersToMeters = (cm) => cm / 100;
-export const metersToKilometers = (m) => m / 1000;
-export const kilometersToMeters = (km) => km * 1000;
+export const convert = (v, f, t) => {
+  if (f === t) return v;
 
-// Waga
-export const kilogramsToGrams = (kg) => kg * 1000;
-export const gramsToKilograms = (g) => g / 1000;
-export const kilogramsToPounds = (kg) => kg * 2.20462;
-export const poundsToKilograms = (lb) => lb / 2.20462;
+  const map = {
+    m: { cm: v * 100, km: v / 1000 },
+    cm: { m: v / 100 },
+    km: { m: v * 1000 },
+    kg: { g: v * 1000, lb: v * 2.20462 },
+    g: { kg: v / 1000 },
+    lb: { kg: v / 2.20462 },
+    c: { f: (v * 9) / 5 + 32 },
+    f: { c: ((v - 32) * 5) / 9 },
+  };
 
-// Temperatura
-export const celsiusToFahrenheit = (c) => (c * 9) / 5 + 32;
-export const fahrenheitToCelsius = (f) => ((f - 32) * 5) / 9;
+  if (!map[f] || map[f][t] === undefined)
+    throw new Error("Brak konwersji");
 
-// Główna funkcja konwersji
-export const convert = (value, fromUnit, toUnit) => {
-  if (fromUnit === toUnit) return value;
-
-  if (fromUnit === "m" && toUnit === "cm") return metersToCentimeters(value);
-  if (fromUnit === "cm" && toUnit === "m") return centimetersToMeters(value);
-  if (fromUnit === "m" && toUnit === "km") return metersToKilometers(value);
-  if (fromUnit === "km" && toUnit === "m") return kilometersToMeters(value);
-
-  if (fromUnit === "kg" && toUnit === "g") return kilogramsToGrams(value);
-  if (fromUnit === "g" && toUnit === "kg") return gramsToKilograms(value);
-  if (fromUnit === "kg" && toUnit === "lb") return kilogramsToPounds(value);
-  if (fromUnit === "lb" && toUnit === "kg") return poundsToKilograms(value);
-
-  if (fromUnit === "C" && toUnit === "F") return celsiusToFahrenheit(value);
-  if (fromUnit === "F" && toUnit === "C") return fahrenheitToCelsius(value);
-
-  throw new Error(`Konwersja z ${fromUnit} na ${toUnit} nie jest obsługiwana.`);
+  return map[f][t];
 };
